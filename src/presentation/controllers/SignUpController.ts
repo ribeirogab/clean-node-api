@@ -1,10 +1,11 @@
+import { IController } from '../protocols/controller';
 import { IHttpRequest, IHttpResponse } from '../protocols/http';
 
 import { MissingParamError } from '../errors/MissingParamError';
 
 import { badRequest } from '../helpers/http.helper';
 
-export class SignUpController {
+export class SignUpController implements IController {
   private readonly expectedBodyParams = [
     'name',
     'email',
