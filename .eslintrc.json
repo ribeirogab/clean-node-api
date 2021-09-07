@@ -50,7 +50,13 @@
       "warn",
       {
         "newlinesBetween": "always",
-        "groups": ["module", "/^@configs/", ["parent", "sibling", "index"]],
+        "groups": [
+          "module",
+          "/[@ | /]protocols/",
+          "/[@ | /]errors/",
+          "/[@ | /]helpers/",
+          ["parent", "sibling", "index"]
+        ],
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],

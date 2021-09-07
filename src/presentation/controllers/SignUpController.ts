@@ -1,5 +1,8 @@
-import { MissingParamError } from '../errors/MissingParamError';
 import { IHttpRequest, IHttpResponse } from '../protocols/http';
+
+import { MissingParamError } from '../errors/MissingParamError';
+
+import { badRequest } from '../helpers/http.helper';
 
 export class SignUpController {
   private readonly expectedBodyParams = [
@@ -15,9 +18,6 @@ export class SignUpController {
       param => !paramsProvided.includes(param),
     );
 
-    return {
-      statusCode: 400,
-      body: new MissingParamError(paramsNotProvided),
-    };
+    return badRequest(new MissingParamError(paramsNotProvided));
   }
 }
