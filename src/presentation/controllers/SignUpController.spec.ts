@@ -68,4 +68,23 @@ describe('SignUp Controller', () => {
       new MissingParamError('passwordConfirmation'),
     );
   });
+
+  it('should return 400 if no parameter is provided', async () => {
+    const sut = new SignUpController();
+    const httpRequest = {
+      body: {},
+    };
+
+    const httpResponse = await sut.handle(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(
+      new MissingParamError([
+        'name',
+        'email',
+        'password',
+        'passwordConfirmation',
+      ]),
+    );
+  });
 });
