@@ -1,3 +1,4 @@
+import { MissingParamError } from '../errors/MissingParamError';
 import { IHttpRequest, IHttpResponse } from '../protocols/http';
 
 export class SignUpController {
@@ -16,7 +17,7 @@ export class SignUpController {
 
     return {
       statusCode: 400,
-      body: new Error(`Missing param: ${paramsNotProvided.join(', ')}`),
+      body: new MissingParamError(paramsNotProvided),
     };
   }
 }
