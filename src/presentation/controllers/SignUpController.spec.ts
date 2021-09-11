@@ -10,14 +10,28 @@ interface ISutTypes {
   emailValidatorStub: IEmailValidator;
 }
 
-function makeSut(): ISutTypes {
+function makeEmailValidator(): IEmailValidator {
   class EmailValidatorStub implements IEmailValidator {
     public validate(_email: string): boolean {
       return true;
     }
   }
 
-  const emailValidatorStub = new EmailValidatorStub();
+  return new EmailValidatorStub();
+}
+
+function makeEmailValidatorWithError(): IEmailValidator {
+  class EmailValidatorStub implements IEmailValidator {
+    public validate(_email: string): boolean {
+      throw new Error();
+    }
+  }
+
+  return new EmailValidatorStub();
+}
+
+function makeSut(): ISutTypes {
+  const emailValidatorStub = makeEmailValidator();
   const sut = new SignUpController(emailValidatorStub);
 
   return { sut, emailValidatorStub };
@@ -150,13 +164,7 @@ describe('SignUp Controller', () => {
   });
 
   it('should return 500 EmailValidator throws', async () => {
-    class EmailValidatorStub implements IEmailValidator {
-      public validate(_email: string): boolean {
-        throw new Error();
-      }
-    }
-
-    const emailValidatorStub = new EmailValidatorStub();
+    const emailValidatorStub = makeEmailValidatorWithError();
     const sut = new SignUpController(emailValidatorStub);
 
     const httpRequest = {
