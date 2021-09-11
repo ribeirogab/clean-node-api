@@ -1,8 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { IEmailValidator } from '../protocols/emailValidator';
 
-import { InvalidParamError, MissingParamError } from '../errors';
-import { ServerError } from '../errors/ServerError';
+import { InvalidParamError, MissingParamError, ServerError } from '../errors';
 
 import { SignUpController } from './SignUpController';
 
