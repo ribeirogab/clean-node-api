@@ -94,6 +94,25 @@ describe('SignUp Controller', () => {
     );
   });
 
+  it('should return 400 if passwordConfirmation fails', async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        name: 'Any Name',
+        email: 'any_email@email.com',
+        password: 'any-password',
+        passwordConfirmation: 'invalid-password',
+      },
+    };
+
+    const httpResponse = await sut.handle(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(
+      new InvalidParamError('passwordConfirmation'),
+    );
+  });
+
   it('should return 400 if no parameter is provided', async () => {
     const { sut } = makeSut();
     const httpRequest = {
