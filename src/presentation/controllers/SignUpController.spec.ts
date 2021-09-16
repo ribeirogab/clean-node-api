@@ -3,11 +3,17 @@ import { IEmailValidator } from '../protocols/emailValidator';
 
 import { InvalidParamError, MissingParamError, ServerError } from '../errors';
 
+import { IAccountModel } from '../../domain/models/IAccount';
+import {
+  IAddAccount,
+  IAddAccountModel,
+} from '../../domain/useCases/IAddAccount';
 import { SignUpController } from './SignUpController';
 
 interface ISutTypes {
   sut: SignUpController;
   emailValidatorStub: IEmailValidator;
+  addAccountStub: IAddAccount;
 }
 
 function makeEmailValidator(): IEmailValidator {
@@ -20,11 +26,29 @@ function makeEmailValidator(): IEmailValidator {
   return new EmailValidatorStub();
 }
 
+function makeAddAccount(): IAddAccount {
+  class AddAccountStub implements IAddAccount {
+    public add(_account: IAddAccountModel): IAccountModel {
+      const fakeAccount = {
+        id: 'valid-id',
+        name: 'valid-name',
+        email: 'valid-email',
+        password: 'valid-password',
+      };
+
+      return fakeAccount;
+    }
+  }
+
+  return new AddAccountStub();
+}
+
 function makeSut(): ISutTypes {
   const emailValidatorStub = makeEmailValidator();
-  const sut = new SignUpController(emailValidatorStub);
+  const addAccountStub = makeAddAccount();
+  const sut = new SignUpController(emailValidatorStub, addAccountStub);
 
-  return { sut, emailValidatorStub };
+  return { sut, emailValidatorStub, addAccountStub };
 }
 
 describe('SignUp Controller', () => {
@@ -192,5 +216,28 @@ describe('SignUp Controller', () => {
 
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse.body).toEqual(new ServerError());
+  });
+
+  it('should call AddAccount with correct values', async () => {
+    const { sut, addAccountStub } = makeSut();
+
+    const addSpy = jest.spyOn(addAccountStub, 'add');
+
+    const payload = {
+      name: 'Any Name',
+      email: 'any_email@email.com',
+      password: 'any-password',
+    };
+
+    const httpRequest = {
+      body: {
+        ...payload,
+        passwordConfirmation: 'any-password',
+      },
+    };
+
+    await sut.handle(httpRequest);
+
+    expect(addSpy).toHaveBeenCalledWith(payload);
   });
 });
