@@ -7,6 +7,8 @@ import { MissingParamError } from '../errors/MissingParamError';
 
 import { badRequest, serverError } from '../helpers/http.helper';
 
+import { IAddAccount } from '../../domain/useCases/IAddAccount';
+
 export class SignUpController implements IController {
   private readonly expectedBodyParams = [
     'name',
@@ -15,7 +17,10 @@ export class SignUpController implements IController {
     'passwordConfirmation',
   ];
 
-  constructor(private readonly emailValidator: IEmailValidator) {}
+  constructor(
+    private readonly emailValidator: IEmailValidator,
+    private addAccount: IAddAccount,
+  ) {}
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
     try {
@@ -28,7 +33,7 @@ export class SignUpController implements IController {
         return badRequest(new MissingParamError(paramsNotProvided));
       }
 
-      const { email, password, passwordConfirmation } = httpRequest.body;
+      const { name, email, password, passwordConfirmation } = httpRequest.body;
 
       if (password !== passwordConfirmation) {
         return badRequest(new InvalidParamError('passwordConfirmation'));
@@ -39,6 +44,8 @@ export class SignUpController implements IController {
       if (!emailIsValid) {
         return badRequest(new InvalidParamError('email'));
       }
+
+      this.addAccount.add({ name, email, password });
 
       return {
         statusCode: 200,
