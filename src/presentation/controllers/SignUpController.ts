@@ -1,6 +1,5 @@
-import { IController } from '../protocols/controller';
+import { IController, IHttpRequest, IHttpResponse } from '../protocols';
 import { IEmailValidator } from '../protocols/emailValidator';
-import { IHttpRequest, IHttpResponse } from '../protocols/http';
 
 import { InvalidParamError } from '../errors/InvalidParamError';
 import { MissingParamError } from '../errors/MissingParamError';
