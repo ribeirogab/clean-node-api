@@ -1,12 +1,15 @@
-import { IController, IHttpRequest, IHttpResponse } from '../protocols';
-import { IEmailValidator } from '../protocols/emailValidator';
+import { InvalidParamError } from '../../errors/InvalidParamError';
+import { MissingParamError } from '../../errors/MissingParamError';
 
-import { InvalidParamError } from '../errors/InvalidParamError';
-import { MissingParamError } from '../errors/MissingParamError';
+import { badRequest, serverError } from '../../helpers/http.helper';
 
-import { badRequest, serverError } from '../helpers/http.helper';
-
-import { IAddAccount } from '../../domain/useCases/IAddAccount';
+import {
+  IController,
+  IHttpRequest,
+  IHttpResponse,
+  IEmailValidator,
+  IAddAccount,
+} from './signUp.protocols';
 
 export class SignUpController implements IController {
   private readonly expectedBodyParams = [
