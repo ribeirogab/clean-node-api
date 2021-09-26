@@ -35,7 +35,7 @@ function makeAddAccount(): IAddAccount {
       const fakeAccount = {
         id: 'valid-id',
         name: 'valid-name',
-        email: 'valid-email',
+        email: 'valid-email@email.com',
         password: 'valid-password',
       };
 
@@ -96,6 +96,28 @@ describe('SignUp Controller', () => {
     await sut.handle(httpRequest);
 
     expect(addSpy).toHaveBeenCalledWith(payload);
+  });
+
+  it('should return 200 if valid data is provided', async () => {
+    const { sut } = makeSut();
+
+    const validData = {
+      name: 'valid-name',
+      email: 'valid-email@email.com',
+      password: 'valid-password',
+      passwordConfirmation: 'valid-password',
+    };
+
+    const httpRequest = {
+      body: validData,
+    };
+
+    const httpResponse = await sut.handle(httpRequest);
+
+    delete validData.passwordConfirmation;
+
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body).toEqual({ id: 'valid-id', ...validData });
   });
 
   it('should return 400 if no name is provided', async () => {
