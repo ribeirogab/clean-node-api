@@ -21,7 +21,7 @@ export class SignUpController implements IController {
 
   constructor(
     private readonly emailValidator: IEmailValidator,
-    private addAccount: IAddAccount,
+    private readonly addAccount: IAddAccount,
   ) {}
 
   public async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
