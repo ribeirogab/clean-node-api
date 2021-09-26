@@ -1,7 +1,7 @@
 import { InvalidParamError } from '../../errors/InvalidParamError';
 import { MissingParamError } from '../../errors/MissingParamError';
 
-import { badRequest, serverError } from '../../helpers/http.helper';
+import { badRequest, serverError, ok } from '../../helpers/http.helper';
 
 import {
   IController,
@@ -49,10 +49,7 @@ export class SignUpController implements IController {
 
       const account = this.addAccount.add({ name, email, password });
 
-      return {
-        statusCode: 200,
-        body: account,
-      };
+      return ok(account);
     } catch (error) {
       return serverError();
     }
