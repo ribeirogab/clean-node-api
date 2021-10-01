@@ -40,4 +40,20 @@ describe('Add Account Database UseCase', () => {
 
     expect(encryptSpy).toHaveBeenCalledWith(password);
   });
+
+  it('should throw if Encrypter throws', async () => {
+    const { sut, encrypterStub } = makeSut();
+
+    jest
+      .spyOn(encrypterStub, 'encrypt')
+      .mockRejectedValueOnce(async () => new Error());
+
+    const accountData = {
+      name: 'valid-name',
+      email: 'valid-email',
+      password: 'valid-password',
+    };
+
+    expect(sut.add(accountData)).rejects.toThrow();
+  });
 });
