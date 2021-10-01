@@ -10,7 +10,7 @@ import {
   IAddAccount,
   IAddAccountModel,
   IAccountModel,
-} from './signUp.protocols';
+} from './signUp.interfaces';
 import { SignUpController } from './SignUpController';
 
 interface ISutTypes {

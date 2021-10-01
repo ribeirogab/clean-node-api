@@ -9,7 +9,7 @@ import {
   IHttpResponse,
   IEmailValidator,
   IAddAccount,
-} from './signUp.protocols';
+} from './signUp.interfaces';
 
 export class SignUpController implements IController {
   private readonly expectedBodyParams = [
