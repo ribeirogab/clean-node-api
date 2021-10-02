@@ -57,7 +57,7 @@ describe('Add Account Database UseCase', () => {
       password,
     };
 
-    await sut.add(accountData);
+    await sut.execute(accountData);
 
     expect(encryptSpy).toHaveBeenCalledWith(password);
   });
@@ -75,7 +75,7 @@ describe('Add Account Database UseCase', () => {
       password: 'valid-password',
     };
 
-    expect(sut.add(accountData)).rejects.toThrow();
+    expect(sut.execute(accountData)).rejects.toThrow();
   });
 
   it('should call AddAccountRepository with correct values', async () => {
@@ -89,7 +89,7 @@ describe('Add Account Database UseCase', () => {
       password: 'valid-password',
     };
 
-    await sut.add(accountData);
+    await sut.execute(accountData);
 
     expect(addSpy).toHaveBeenCalledWith({
       ...accountData,

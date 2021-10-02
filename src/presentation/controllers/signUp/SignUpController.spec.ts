@@ -30,7 +30,7 @@ function makeEmailValidator(): IEmailValidator {
 
 function makeAddAccount(): IAddAccount {
   class AddAccountStub implements IAddAccount {
-    public async add(_account: IAddAccountModel): Promise<IAccountModel> {
+    public async execute(_account: IAddAccountModel): Promise<IAccountModel> {
       const fakeAccount = {
         id: 'valid-id',
         name: 'valid-name',
@@ -77,7 +77,7 @@ describe('SignUp Controller', () => {
   it('should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut();
 
-    const addSpy = jest.spyOn(addAccountStub, 'add');
+    const addSpy = jest.spyOn(addAccountStub, 'execute');
 
     const payload = {
       name: 'Any Name',
@@ -268,7 +268,7 @@ describe('SignUp Controller', () => {
   it('should return 500 AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut();
 
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
+    jest.spyOn(addAccountStub, 'execute').mockImplementationOnce(async () => {
       throw new Error();
     });
 

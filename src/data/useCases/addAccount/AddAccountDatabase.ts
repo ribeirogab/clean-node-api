@@ -12,7 +12,7 @@ export class AddAccountDatabase implements IAddAccount {
     private readonly addAccountRepository: IAddAccountRepository,
   ) {}
 
-  public async add({
+  public async execute({
     email,
     name,
     password,

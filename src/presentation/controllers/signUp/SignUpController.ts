@@ -47,7 +47,7 @@ export class SignUpController implements IController {
         return badRequest(new InvalidParamError('email'));
       }
 
-      const account = await this.addAccount.add({ name, email, password });
+      const account = await this.addAccount.execute({ name, email, password });
 
       return ok(account);
     } catch (error) {
