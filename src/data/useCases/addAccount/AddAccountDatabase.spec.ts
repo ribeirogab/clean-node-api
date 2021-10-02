@@ -110,4 +110,22 @@ describe('Add Account Database UseCase', () => {
 
     await expect(sut.execute(accountData)).rejects.toThrow();
   });
+
+  it('should return an account on success', async () => {
+    const { sut } = makeSut();
+
+    const accountData = {
+      name: 'valid-name',
+      email: 'valid-email',
+      password: 'valid-password',
+    };
+
+    const account = await sut.execute(accountData);
+
+    expect(account).toEqual({
+      id: 'valid-id',
+      ...accountData,
+      password: 'hashed-password',
+    });
+  });
 });
