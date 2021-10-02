@@ -65,9 +65,7 @@ describe('Add Account Database UseCase', () => {
   it('should throw if Encrypter throws', async () => {
     const { sut, encrypterStub } = makeSut();
 
-    jest
-      .spyOn(encrypterStub, 'encrypt')
-      .mockRejectedValueOnce(async () => new Error());
+    jest.spyOn(encrypterStub, 'encrypt').mockRejectedValueOnce(new Error());
 
     const accountData = {
       name: 'valid-name',
@@ -75,7 +73,7 @@ describe('Add Account Database UseCase', () => {
       password: 'valid-password',
     };
 
-    expect(sut.execute(accountData)).rejects.toThrow();
+    await expect(sut.execute(accountData)).rejects.toThrow();
   });
 
   it('should call AddAccountRepository with correct values', async () => {
@@ -95,5 +93,21 @@ describe('Add Account Database UseCase', () => {
       ...accountData,
       password: 'hashed-password',
     });
+  });
+
+  it('should throw if AddAccountRepository throws', async () => {
+    const { sut, addAccountRepositoryStub } = makeSut();
+
+    jest
+      .spyOn(addAccountRepositoryStub, 'execute')
+      .mockRejectedValueOnce(new Error());
+
+    const accountData = {
+      name: 'valid-name',
+      email: 'valid-email',
+      password: 'valid-password',
+    };
+
+    await expect(sut.execute(accountData)).rejects.toThrow();
   });
 });
