@@ -1,5 +1,5 @@
-import { IEncrypter } from '../../interfaces/IEncrypter';
 import { AddAccountDatabase } from './AddAccountDatabase';
+import { IEncrypter } from './addAccountDatabase.interfaces';
 
 type SutTypes = {
   sut: AddAccountDatabase;

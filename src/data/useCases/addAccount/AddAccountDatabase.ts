@@ -1,9 +1,9 @@
-import { IAccountModel } from '../../../domain/models/IAccount';
 import {
   IAddAccount,
+  IEncrypter,
   IAddAccountModel,
-} from '../../../domain/useCases/IAddAccount';
-import { IEncrypter } from '../../interfaces/IEncrypter';
+  IAccountModel,
+} from './addAccountDatabase.interfaces';
 
 export class AddAccountDatabase implements IAddAccount {
   constructor(private readonly encrypter: IEncrypter) {}
