@@ -3,14 +3,28 @@ import {
   IEncrypter,
   IAddAccountModel,
   IAccountModel,
+  IAddAccountRepository,
 } from './addAccountDatabase.interfaces';
 
 export class AddAccountDatabase implements IAddAccount {
-  constructor(private readonly encrypter: IEncrypter) {}
+  constructor(
+    private readonly encrypter: IEncrypter,
+    private readonly addAccountRepository: IAddAccountRepository,
+  ) {}
 
-  public async add(account: IAddAccountModel): Promise<IAccountModel> {
-    await this.encrypter.encrypt(account.password);
+  public async add({
+    email,
+    name,
+    password,
+  }: IAddAccountModel): Promise<IAccountModel> {
+    const hashedPassword = await this.encrypter.encrypt(password);
 
-    return null;
+    const account = await this.addAccountRepository.execute({
+      email,
+      name,
+      password: hashedPassword,
+    });
+
+    return account;
   }
 }
