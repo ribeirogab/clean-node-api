@@ -1,16 +1,20 @@
-import { mongodbHelper } from './mongodb.helper';
+// import { mongodbHelper } from './mongodb.helper';
 
 // function makeSut() {
 //   return new AccountMongoDBRepository();
 // }
 
 describe('Account Repository', () => {
-  beforeAll(async () => {
-    await mongodbHelper.connect(process.env.MONGO_URL);
-  });
+  // beforeAll(async () => {
+  //   await mongodbHelper.connect(process.env.MONGO_URL);
+  // });
 
-  afterAll(async () => {
-    await mongodbHelper.disconnect();
+  // afterAll(async () => {
+  //   await mongodbHelper.disconnect();
+  // });
+
+  it('only test', () => {
+    expect(1 + 1).toBe(2);
   });
 
   // it('should return an account on success', async () => {
