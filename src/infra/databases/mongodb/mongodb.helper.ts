@@ -1,13 +1,14 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, Collection } from 'mongodb';
 
 interface IMongoDbHelper {
-  client: MongoClient | null;
+  client: MongoClient | undefined;
   connect(url?: string): Promise<void>;
   disconnect(): Promise<void>;
+  getCollection(collectionName: string): Collection;
 }
 
 class MongoDBHelper implements IMongoDbHelper {
-  public client: MongoClient | null;
+  public client: MongoClient | undefined;
 
   public async connect(url?: string): Promise<void> {
     if (url) {
@@ -22,6 +23,10 @@ class MongoDBHelper implements IMongoDbHelper {
     if (this.client) {
       await this.client.close();
     }
+  }
+
+  public getCollection(collectionName: string): Collection {
+    return this.client?.db().collection(collectionName);
   }
 }
 
