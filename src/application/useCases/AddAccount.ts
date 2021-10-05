@@ -1,12 +1,12 @@
+import { IAddAccountRepository } from '../../domain/contracts/repositories/IAddAccountRepository';
+import { IAccountModel } from '../../domain/entities/IAccount';
 import {
   IAddAccount,
-  IEncrypter,
   IAddAccountModel,
-  IAccountModel,
-  IAddAccountRepository,
-} from './addAccountDatabase.interfaces';
+} from '../../domain/useCases/IAddAccount';
+import { IEncrypter } from '../contracts/IEncrypter';
 
-export class AddAccountDatabase implements IAddAccount {
+export class AddAccount implements IAddAccount {
   constructor(
     private readonly encrypter: IEncrypter,
     private readonly addAccountRepository: IAddAccountRepository,

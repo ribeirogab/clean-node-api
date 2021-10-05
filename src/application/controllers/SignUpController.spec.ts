@@ -1,15 +1,11 @@
-import {
-  InvalidParamError,
-  MissingParamError,
-  ServerError,
-} from '../../errors';
+import { InvalidParamError, MissingParamError, ServerError } from '../errors';
 
+import { IAccountModel } from '../../domain/entities/IAccount';
 import {
-  IEmailValidator,
   IAddAccount,
   IAddAccountModel,
-  IAccountModel,
-} from './signUp.interfaces';
+} from '../../domain/useCases/IAddAccount';
+import { IEmailValidator } from '../contracts';
 import { SignUpController } from './SignUpController';
 
 interface ISutTypes {

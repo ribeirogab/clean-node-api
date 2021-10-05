@@ -1,13 +1,11 @@
-import { AddAccountDatabase } from './AddAccountDatabase';
-import {
-  IEncrypter,
-  IAccountModel,
-  IAddAccountModel,
-  IAddAccountRepository,
-} from './addAccountDatabase.interfaces';
+import { IAddAccountRepository } from '../../domain/contracts/repositories/IAddAccountRepository';
+import { IAccountModel } from '../../domain/entities/IAccount';
+import { IAddAccountModel } from '../../domain/useCases/IAddAccount';
+import { IEncrypter } from '../contracts/IEncrypter';
+import { AddAccount } from './AddAccount';
 
 type SutTypes = {
-  sut: AddAccountDatabase;
+  sut: AddAccount;
   encrypterStub: IEncrypter;
   addAccountRepositoryStub: IAddAccountRepository;
 };
@@ -39,7 +37,7 @@ function makeAddAccountRepository() {
 function makeSut(): SutTypes {
   const encrypterStub = makeEncrypter();
   const addAccountRepositoryStub = makeAddAccountRepository();
-  const sut = new AddAccountDatabase(encrypterStub, addAccountRepositoryStub);
+  const sut = new AddAccount(encrypterStub, addAccountRepositoryStub);
 
   return { sut, encrypterStub, addAccountRepositoryStub };
 }

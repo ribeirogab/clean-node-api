@@ -1,6 +1,6 @@
 import { ServerError } from '../errors';
 
-import { IHttpResponse } from '../interfaces/IHttp';
+import { IHttpResponse } from '../contracts';
 
 export const badRequest = (error: Error): IHttpResponse => ({
   statusCode: 400,
