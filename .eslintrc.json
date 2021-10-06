@@ -53,9 +53,10 @@
         "newlinesBetween": "always",
         "groups": [
           "module",
-          "/[@ | /]protocols/",
-          "/[@ | /]errors/",
-          "/[@ | /]helpers/",
+          "/[@ | /]domain/",
+          "/[@ | /]application/",
+          "/[@ | /]infrastructure/",
+          "/[@ | /]main/",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }

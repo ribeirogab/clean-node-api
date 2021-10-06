@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 
-import { IEncrypter } from '../../application/contracts/IEncrypter';
+import { IEncrypter } from '@application/contracts/IEncrypter';
 
 export class BcryptAdapter implements IEncrypter {
   private readonly saltOrRounds = 12;

@@ -1,10 +1,8 @@
-import { IAddAccountRepository } from '../../domain/contracts/repositories/IAddAccountRepository';
-import { IAccountModel } from '../../domain/entities/IAccount';
-import {
-  IAddAccount,
-  IAddAccountModel,
-} from '../../domain/useCases/IAddAccount';
-import { IEncrypter } from '../contracts/IEncrypter';
+import { IAddAccountRepository } from '@domain/contracts/repositories/IAddAccountRepository';
+import { IAccountModel } from '@domain/entities/IAccount';
+import { IAddAccount, IAddAccountModel } from '@domain/useCases/IAddAccount';
+
+import { IEncrypter } from '@application/contracts/IEncrypter';
 
 export class AddAccount implements IAddAccount {
   constructor(

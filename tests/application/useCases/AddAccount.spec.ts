@@ -1,8 +1,9 @@
-import { IAddAccountRepository } from '../../domain/contracts/repositories/IAddAccountRepository';
-import { IAccountModel } from '../../domain/entities/IAccount';
-import { IAddAccountModel } from '../../domain/useCases/IAddAccount';
-import { IEncrypter } from '../contracts/IEncrypter';
-import { AddAccount } from './AddAccount';
+import { IAddAccountRepository } from '@domain/contracts/repositories/IAddAccountRepository';
+import { IAccountModel } from '@domain/entities/IAccount';
+import { IAddAccountModel } from '@domain/useCases/IAddAccount';
+
+import { IEncrypter } from '@application/contracts/IEncrypter';
+import { AddAccount } from '@application/useCases/AddAccount';
 
 type SutTypes = {
   sut: AddAccount;

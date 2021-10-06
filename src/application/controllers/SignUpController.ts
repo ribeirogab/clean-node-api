@@ -1,14 +1,13 @@
-import { InvalidParamError, MissingParamError } from '../errors';
+import { IAddAccount } from '@domain/useCases/IAddAccount';
 
-import { badRequest, serverError, ok } from '../helpers/http.helper';
-
-import { IAddAccount } from '../../domain/useCases/IAddAccount';
 import {
   IController,
   IEmailValidator,
   IHttpRequest,
   IHttpResponse,
-} from '../contracts';
+} from '@application/contracts';
+import { InvalidParamError, MissingParamError } from '@application/errors';
+import { badRequest, serverError, ok } from '@application/helpers/http.helper';
 
 export class SignUpController implements IController {
   private readonly expectedBodyParams = [

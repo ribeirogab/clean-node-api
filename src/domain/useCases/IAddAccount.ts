@@ -1,4 +1,4 @@
-import { IAccountModel } from '../entities/IAccount';
+import { IAccountModel } from '@domain/entities/IAccount';
 
 export interface IAddAccountModel {
   name: string;
