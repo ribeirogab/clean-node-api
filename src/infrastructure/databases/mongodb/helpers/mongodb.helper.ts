@@ -11,7 +11,7 @@ class MongoDBHelper implements IMongoDbHelper {
   public client: MongoClient | undefined;
 
   public async connect(url?: string): Promise<void> {
-    if (url) {
+    if (!url) {
       throw new Error('Connection url with mongodb not provided');
     }
 
