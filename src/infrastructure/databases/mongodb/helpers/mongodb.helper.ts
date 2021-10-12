@@ -28,6 +28,16 @@ class MongoDBHelper implements IMongoDbHelper {
   public getCollection(collectionName: string): Collection {
     return this.client?.db().collection(collectionName);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public mapper<T>({ _id, ...dataWithoutId }: any): T {
+    const mappedData: T = {
+      id: _id,
+      ...dataWithoutId,
+    };
+
+    return mappedData;
+  }
 }
 
 export const mongodbHelper = new MongoDBHelper();

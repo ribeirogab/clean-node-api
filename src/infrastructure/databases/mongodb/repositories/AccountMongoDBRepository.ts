@@ -10,13 +10,13 @@ export class AccountMongoDBRepository implements IAddAccountRepository {
 
     const { insertedId } = await accountCollection.insertOne(accountData);
 
-    const { _id, ...accountWithoutId } = await accountCollection.findOne<
+    const mongodbAccount = await accountCollection.findOne<
       Omit<IAccountModel, 'id'> & { _id: string }
     >({
       _id: insertedId,
     });
 
-    const account = { id: _id, ...accountWithoutId };
+    const account = mongodbHelper.mapper<IAccountModel>(mongodbAccount);
 
     return account;
   }
