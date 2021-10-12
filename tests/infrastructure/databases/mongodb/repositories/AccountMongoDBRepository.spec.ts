@@ -1,8 +1,9 @@
 import { mongodbHelper } from '@infrastructure/databases/mongodb/helpers/mongodb.helper';
+import { AccountMongoDBRepository } from '@infrastructure/databases/mongodb/repositories/AccountMongoDBRepository';
 
-// function makeSut() {
-//   return new AccountMongoDBRepository();
-// }
+function makeSut() {
+  return new AccountMongoDBRepository();
+}
 
 describe('Account Repository', () => {
   beforeAll(async () => {
@@ -13,25 +14,21 @@ describe('Account Repository', () => {
     await mongodbHelper.disconnect();
   });
 
-  it('only test', () => {
-    expect(1 + 1).toBe(2);
+  it('should return an account on success', async () => {
+    const sut = makeSut();
+
+    const accountData = {
+      name: 'any-name',
+      email: 'any-email@mail.com',
+      password: 'any-password',
+    };
+
+    const account = await sut.execute(accountData);
+
+    expect(account).toBeTruthy();
+    expect(account.id).toBeTruthy();
+    expect(account.name).toBe(accountData.name);
+    expect(account.email).toBe(accountData.email);
+    expect(account.password).toBe(accountData.password);
   });
-
-  // it('should return an account on success', async () => {
-  //   const sut = makeSut();
-
-  //   const accountData = {
-  //     name: 'any-name',
-  //     email: 'any-email@mail.com',
-  //     password: 'any-password',
-  //   };
-
-  //   const account = await sut.add(accountData);
-
-  //   expect(account).toBeTruthy();
-  //   expect(account.id).toBeTruthy();
-  //   expect(account.name).toBe(accountData.name);
-  //   expect(account.email).toBe(accountData.email);
-  //   expect(account.password).toBe(accountData.password);
-  // });
 });
