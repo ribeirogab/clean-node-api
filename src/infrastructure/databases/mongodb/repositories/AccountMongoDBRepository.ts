@@ -8,8 +8,16 @@ export class AccountMongoDBRepository implements IAddAccountRepository {
   public async execute(accountData: IAddAccountModel): Promise<IAccountModel> {
     const accountCollection = mongodbHelper.getCollection('accounts');
 
-    await accountCollection.insertOne(accountData);
+    const { insertedId } = await accountCollection.insertOne(accountData);
 
-    return null as IAccountModel;
+    const { _id, ...accountWithoutId } = await accountCollection.findOne<
+      Omit<IAccountModel, 'id'> & { _id: string }
+    >({
+      _id: insertedId,
+    });
+
+    const account = { id: _id, ...accountWithoutId };
+
+    return account;
   }
 }
